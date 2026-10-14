@@ -17,8 +17,8 @@ export const getTransactions = async (
     const filter:TransactionFilter = {userId}
 
     if(month && year) {
-        const startDate = dayjs(`${year}-${month}-01 `).startOf("month").toDate()
-        const endDate = dayjs(startDate).endOf("month").toDate()
+        const startDate = new Date(Date.UTC(Number(year), Number(month) - 1, 1))
+        const endDate = new Date(Date.UTC(Number(year), Number(month), 0, 23, 59, 59, 999))
 
         filter.date = {
             gte: startDate,
