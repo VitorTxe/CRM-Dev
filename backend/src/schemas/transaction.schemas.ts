@@ -1,7 +1,7 @@
 import z from "zod"
 import { ObjectId } from "mongodb"
 import { error } from "node:console"
-
+//TODO Nao entendi essa linha 
 const isValidObjectId = (id: string): boolean => ObjectId.isValid(id)
 
 export const createTransactionSchema = z.object({
