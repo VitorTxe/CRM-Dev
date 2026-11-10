@@ -1,14 +1,25 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router";
 import GoogleButtonLogin from "../components/GoogleButtonLogin";
 import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
-  const { signWithGoogle } = useAuth();
+  const { signWithGoogle, authState } = useAuth();
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
       await signWithGoogle();
-    } catch (_error) {}
+    } catch (error) {
+      console.error("Erro ao fazer login com google", error);
+    }
   };
+
+  useEffect(() => {
+    if (authState.user && !authState.loading) {
+      navigate("/dashboard");
+    }
+  }, [authState.user, authState.loading, navigate]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -29,6 +40,12 @@ const Login = () => {
           </section>
 
           <GoogleButtonLogin onClick={handleLogin} isLoading={false} />
+
+          {authState.error && (
+            <div className="text-center text-red-700 mt-4">
+              <p>{authState.error}Erro no sistema</p>
+            </div>
+          )}
 
           <footer className="mt-6">
             <p className="mt-1 text-sm text-gray-600 text-center">

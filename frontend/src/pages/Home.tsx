@@ -1,5 +1,6 @@
 import { CreditCard, List, TrendingUp, Wallet } from "lucide-react";
 import type { JSX } from "react";
+import { useNavigate } from "react-router";
 import Button from "../components/Button";
 import { useAuth } from "../context/AuthContext";
 
@@ -10,9 +11,9 @@ interface Feature {
 }
 
 const Home = () => {
-  const auth = useAuth();
+  const _auth = useAuth();
 
-  console.log(auth);
+  const navigate = useNavigate();
 
   const features: ReadonlyArray<Feature> = [
     {
@@ -53,7 +54,9 @@ const Home = () => {
                 suas finanças pessoais ou do seu negocio com facilidade
               </p>
               <div className="flex flex-col sm:flex-row space-y-4 sm:spae-y-0 sm:space-x-4">
-                <Button className="text-center px-6 py-3">Começar Agora</Button>
+                <Button className="text-center px-6 py-3" onClick={() => navigate("/login")}>
+                  Começar Agora
+                </Button>
               </div>
             </div>
           </div>
@@ -92,7 +95,9 @@ const Home = () => {
               Comece a usuar o CRM Dev hoje mesmo e tenha o controle total sobre seu dinheiro. É
               gratuito e facl de usar
             </p>
-            <Button className="mx-auto px-6 py-3">Começar Agora</Button>
+            <Button className="mx-auto px-6 py-3" onClick={() => navigate("/login")}>
+              Começar Agora
+            </Button>
           </div>
         </section>
       </div>
